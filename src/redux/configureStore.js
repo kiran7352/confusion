@@ -1,27 +1,26 @@
-import {createStore, combineReducers, applyMiddleware} from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import {Dishes} from './dishes';
+import {Comments} from './comments';
+import { Leaders} from './leaders';
+import { Promotions} from './promotions';
 import { createForms } from 'react-redux-form';
-import { Dishes } from './dishes';
-import { Comments } from './comments';
-import { Promotions } from './promotions';
-import { Leaders } from './leaders';
-import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import { InitialFeedback } from './forms';
+import thunk from 'redux-thunk';
+import { initialFeedback } from './forms';
+// import logger from 'redux-logger';
 
-export const ConfigureStore = () => {
+export const configureStore= () => {
     const store = createStore(
         combineReducers({
-            dishes: Dishes,
+            dishes:Dishes,
+            leaders:Leaders,
+            promotions:Promotions,
             comments: Comments,
-            promotions: Promotions,
-            leaders: Leaders,
             ...createForms({
-                feedback: InitialFeedback
+                feedback: initialFeedback
             })
         }),
-        applyMiddleware(thunk, logger)
+        applyMiddleware(thunk, logger)  
     );
-
-    
     return store;
 }
